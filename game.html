@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Guess the Number</title>
+    <!--Custom css codes-->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2em;
+            margin-top: 20px;
+        }
+        
+        p {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        
+        input {
+            margin-top: 10px;
+            font-size: 1.2em;
+            padding: 5px;
+        }
+        
+        button {
+            margin-top: 10px;
+            font-size: 1.2em;
+            padding: 5px 10px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #005F6B;
+        }
+        
+        #result {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Guess the Number</h1>
+    <p>Guess a number between 1 and 100 within 10 attempts:</p>
+    <input type="text" id="guess">
+    <br>
+    <button id="submit">Submit Guess</button>
+    <br>
+    <div id="result"></div>
+    <script>
+        // Generate a random number between 1 and 100 it will genarate automatic
+        const number = Math.floor(Math.random() * 100) + 1;
+        let attempts = 10; // Number of attempts remaining
+
+        // Get the submit button and result 
+        const submitBtn = document.getElementById('submit');
+        const resultDiv = document.getElementById('result');
+
+        // Add event listener to the submit button
+        submitBtn.addEventListener('click', function() {
+            // Get the user's guess
+            const guess = parseInt(document.getElementById('guess').value);
+
+            // Check if the guess is correct
+            if (guess === number) {
+                resultDiv.innerHTML = 'Congratulations! You guessed the number!';
+                submitBtn.disabled = true;
+            } else {
+                attempts--;
+
+                if (attempts === 0) {
+                    resultDiv.innerHTML = 'Sorry, you ran out of attempts. The number was ' + number + '.';
+                    submitBtn.disabled = true;
+                } else {
+                    let message;
+
+                    if (guess > number) {
+                        message = 'Too high!';
+                    } else {
+                        message = 'Too low!';
+                    }
+
+                    message += ' You have ' + attempts + ' attempts remaining.';
+
+                    resultDiv.innerHTML = message;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
